@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import PhoneModel from "../PhoneDisplay/Phone";
 import ChatCard from "../ChatCard/ChatCard";
-import PhoneDisplayAnimation from "../PhoneDisplay/PhoneDisplayAnimation";
+import PhoneDisplayStatic from "../PhoneDisplay/PhoneDisplayStatic";
 export default function HomePage() {
   return (
     <div className="HomePage">
@@ -36,7 +36,7 @@ export default function HomePage() {
               <PhoneModel rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} />
             </Suspense>
           </Canvas> */}
-          <PhoneDisplayAnimation />
+          <PhoneDisplayStatic />
         </div>
       </div>
       <div className="Page2">

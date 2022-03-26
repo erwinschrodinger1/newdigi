@@ -2,7 +2,6 @@ import React, { useEffect, Suspense, useRef, useState } from "react";
 import Individualchat from "./Individualchat";
 import PhoneModel from "./Phone";
 import { Canvas } from "@react-three/fiber";
-import { Html } from "@react-three/drei";
 import "./PhoneDisplay.sass";
 export default function PhoneDisplayAnimation() {
   const chat = [
@@ -87,24 +86,22 @@ export default function PhoneDisplayAnimation() {
             position={[0, 0, 0.8]}
             rotation={[Math.PI, 0, -Math.PI]}
           />
-          {/* <Html>
-            <div className="screen">
-              <div className="display">
-                <div className="alldis">
-                  <div className="navbar">
-                    <p>9:45</p>
-                    <p>5G</p>
-                  </div>
-                  <div className="chatnepal">
-                    {chatDraftedList}
-                    <div ref={messageEndref} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Html> */}
         </Suspense>
       </Canvas>
+      <div className="screen">
+        <div className="display">
+          <div className="alldis">
+            <div className="navbar">
+              <p>9:45</p>
+              <p>5G</p>
+            </div>
+            <div className="chatnepal">
+              {chatDraftedList}
+              <div ref={messageEndref} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

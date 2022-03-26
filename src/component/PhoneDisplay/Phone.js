@@ -131,9 +131,6 @@ export default function PhoneModel({ ...props }) {
             geometry={nodes.Plane002_2.geometry}
             material={materials.Screen}
           />
-          <Html style={{ position: "absolute", top: "-50%" }}>
-            <div>Nirjal Bhurtel</div>
-          </Html>
         </group>
         <group position={[-0.44, 1.49, 0.07]} scale={[1.73, 1.73, 1.67]}>
           <mesh
