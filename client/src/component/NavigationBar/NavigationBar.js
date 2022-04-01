@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NavigationBar.sass";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 export default function NavigationBar() {
   const [menu, setMenu] = useState(true);
@@ -14,9 +14,9 @@ export default function NavigationBar() {
           <p>Digi-Papyrus</p>
         </div>
         <div className="options">
-          <p>
-            <Link to="/">Home</Link>
-          </p>
+          <Link to="/">
+            <FaHome size={28} />
+          </Link>
           <p>
             <p>Digi-Papyrus</p>
           </p>
@@ -57,7 +57,7 @@ export default function NavigationBar() {
             <p>Publish Digi-Papyrus</p>
           </p>
           <p onClick={of}>
-            <p>Publish Digi-Chats</p>
+            <Link to="/chatInput">Publish Digi-Chats</Link>
           </p>
           <p onClick={of}>
             <Link to="/about">About Us</Link>
