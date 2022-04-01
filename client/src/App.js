@@ -5,6 +5,7 @@ import HomePage from "./component/Homepage/HomePage";
 import AboutUsPage from "./component/AboutUsPage/AboutUsPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./component/Login/login";
+import ChatInput from "./component/PublishDigiChats/ChatInput";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chatInput" element={<ChatInput />} />
         </Routes>
       </BrowserRouter>
     </div>

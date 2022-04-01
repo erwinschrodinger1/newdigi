@@ -13,7 +13,9 @@ function Login() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password2, setpassword2] = useState("");
-  const [floatingClass, setFloatingClass] = useState("FloatingComponent");
+  const [floatingClass, setFloatingClass] = useState(
+    "FloatingComponentActive FloatingComponent"
+  );
   let history = useNavigate();
 
   const addtolist = async (e) => {
