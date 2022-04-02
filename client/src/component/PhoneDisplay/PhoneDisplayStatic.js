@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, useRef, useState } from "react";
+import React, { Suspense } from "react";
 import Individualchat from "./Individualchat";
 import PhoneModel from "./Phone";
 import { Canvas } from "@react-three/fiber";
@@ -15,7 +15,7 @@ export default function PhoneDisplayStatic(prop) {
       return (
         <Individualchat
           chat={chats.text}
-          type={chats.sender === "Nirjal Bhurtel" ? "sender" : "reciever"}
+          type={chats.sender === prop.sender ? "sender" : "reciever"}
         />
       );
     } else {
@@ -56,7 +56,8 @@ export default function PhoneDisplayStatic(prop) {
               <p>9:45</p>
               <p>5G</p>
             </div>
-            <div className="chatnepal">{chatDraftedList}</div>
+            <div className="chatnepal">{chatDraftedList}</div>{" "}
+            {/* this is just a class to style the component */}
           </div>
         </div>
       </div>

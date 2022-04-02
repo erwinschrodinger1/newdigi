@@ -3,12 +3,24 @@ import PhoneDisplayStatic from "../PhoneDisplay/PhoneDisplayStatic";
 import "./ChatInput.sass";
 import { Link } from "react-router-dom";
 import preprocessorWhatsapp from "../../logic/preprocessor";
+import axios from "axios";
 
 export default function ChatInput() {
   const [page, setPage] = useState("whatsapp");
-  const [sender, setSender] = useState("");
-  const [reciever, setReciever] = useState("");
-  const [chat, setChat] = useState("");
+  const [sender, setSender] = useState("Sender");
+  const [chat, setChat] =
+    useState(`09/12/2021, 9:27 pm - Mannual message writing option to publsh the digi chat
+  09/12/2021, 9:27 pm - Sender: First chat here
+  09/12/2021, 9:27 pm - Reciever: Reply chat here
+  `);
+  async function sendData(e) {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/publishChat", { sender, chat })
+      .then(() => {
+        alert("Chat sucessfully sent");
+      });
+  }
   return (
     <div className="ChatInput">
       <div className="InputSection">
@@ -17,7 +29,7 @@ export default function ChatInput() {
             className={page === "whatsapp" ? "boxactive" : "boxhidden"}
             onClick={() => {
               console.log(page);
-              if (page == "whatsapp") {
+              if (page === "whatsapp") {
                 setPage("mannual");
               } else {
                 setPage("whatsapp");
@@ -30,7 +42,7 @@ export default function ChatInput() {
             className={page === "mannual" ? "boxactive" : "boxhidden"}
             onClick={() => {
               console.log(page);
-              if (page == "whatsapp") {
+              if (page === "whatsapp") {
                 setPage("mannual");
               } else {
                 setPage("whatsapp");
@@ -42,18 +54,17 @@ export default function ChatInput() {
         </div>
         <div
           className={
-            `${page === "mannual" ? "hidden" : "active"}` + " inputcontent"
+            `${page === "mannual" ? "hidden" : "active"}` + ` inputcontent`
           }
         >
           <input
             className="textbox"
             type="textbox"
             placeholder="Sender's name"
-          />
-          <input
-            className="textbox"
-            type="textbox"
-            placeholder="Reciever's name"
+            onChange={(e) => {
+              setSender(e.target.value);
+            }}
+            defaultValue="Sender"
           />
           <label>Upload a file.</label>
           <input
@@ -69,7 +80,7 @@ export default function ChatInput() {
             }}
           />
 
-          <button>Submit</button>
+          <button onClick={sendData}>Submit</button>
         </div>
 
         <div
@@ -77,20 +88,39 @@ export default function ChatInput() {
             `${page === "whatsapp" ? "hidden" : "active"}` + " inputcontent"
           }
         >
-          <textarea placeholder="Enter you chat story here" />
+          <input
+            className="textbox"
+            type="textbox"
+            placeholder="Sender's name"
+            onChange={(e) => {
+              setSender(e.target.value);
+            }}
+            defaultValue="Sender"
+          />
+
+          <textarea
+            placeholder="Enter you chat story here"
+            defaultValue="09/12/2021, 9:27 pm - Mannual message writing option to publsh the digi chat
+09/12/2021, 9:27 pm - Sender: First chat here
+09/12/2021, 9:27 pm - Reciever: Reply chat here
+"
+            onChange={(e) => {
+              setChat(e.target.value);
+            }}
+          />
           <div className="docs">
             <p>
               Write the message in following format that you can explore.{" "}
               <Link to="/"> Here ! </Link>
             </p>
 
-            <button>Submit</button>
+            <button onClick={sendData}>Submit</button>
           </div>
         </div>
       </div>
 
       <div className="OutputSection">
-        <PhoneDisplayStatic chat={preprocessorWhatsapp(chat)} />
+        <PhoneDisplayStatic chat={preprocessorWhatsapp(chat)} sender={sender} />
       </div>
     </div>
   );
