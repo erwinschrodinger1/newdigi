@@ -5,7 +5,12 @@ export default function Individualchat(prop) {
     return <p className="typing">Typing</p>;
   };
   const Textfunction = () => {
-    return <p>{prop.chat}</p>;
+    return (
+      <div>
+        <p>{prop.date}</p>
+        <p>{prop.chat}</p>
+      </div>
+    );
   };
 
   let marginLeft;
