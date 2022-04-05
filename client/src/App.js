@@ -6,6 +6,7 @@ import AboutUsPage from "./component/AboutUsPage/AboutUsPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./component/Login/login";
 import ChatInput from "./component/PublishDigiChats/ChatInput";
+import ChatOutput from "./component/ChatOutput/ChatOutput";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/chatInput" element={<ChatInput />} />
+          <Route path="/chat/:_id" element={<ChatOutput />} />
         </Routes>
       </BrowserRouter>
     </div>

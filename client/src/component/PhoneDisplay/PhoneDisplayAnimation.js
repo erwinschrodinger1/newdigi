@@ -3,36 +3,8 @@ import Individualchat from "./Individualchat";
 import PhoneModel from "./Phone";
 import { Canvas } from "@react-three/fiber";
 import "./PhoneDisplay.sass";
-export default function PhoneDisplayAnimation() {
-  const chat = [
-    {
-      date: "09/12/2021, 9:27 pm",
-      sender: "+977 981-6364854",
-      text: " Hi Mate! What's Up?😀 ",
-      reciever: "+977 981-6364854",
-    },
-    {
-      date: "09/12/2021, 9:27 pm",
-      sender: "Nirjal Bhurtel",
-      text: " Thank You! All good😁 what about you was just chilling and having fun with Digi !",
-    },
-    {
-      date: "09/12/2021, 9:28 pm",
-      sender: "+977 981-6364854",
-      text: "Yeah! The animations and digi chat is fun bro! I also enjoy reading it!",
-      reciever: "+977 981-6364854",
-    },
-    {
-      date: "09/12/2021, 9:29 pm",
-      sender: "Nirjal Bhurtel",
-      text: "Yeah mate! Reading books is not same as it used to! I started reading more",
-    },
-    {
-      date: "09/12/2021, 9:29 pm",
-      sender: "Nirjal Bhurtel",
-      text: " Same here mate! Cheers! For Digi!",
-    },
-  ];
+export default function PhoneDisplayAnimation(prop) {
+  const chat = prop.chat;
   const messageEndref = useRef(null);
   const [count, setCount] = useState(0);
 
@@ -40,21 +12,22 @@ export default function PhoneDisplayAnimation() {
     // messageEndref.current.scrollIntoView({ behavior: "smooth" });
     let counter = count;
     const delay = setTimeout(() => {
-      if (counter >= chat.length) {
+      if (counter >= prop.chat.length) {
         clearTimeout(delay);
       } else {
         setCount((count) => count + 1);
         counter++;
       }
-    }, 2000);
+    }, 200);
     return () => clearTimeout(delay);
   }, [chat]);
   let chatDraftedList = chat.slice(0, count).map((chats, index) => {
     if (chats) {
+      console.log(chats);
       return (
         <Individualchat
           chat={chats.text}
-          type={chats.sender === "Nirjal Bhurtel" ? "sender" : "reciever"}
+          type={chats.sender === prop.sender ? "sender" : "reciever"}
         />
       );
     } else {

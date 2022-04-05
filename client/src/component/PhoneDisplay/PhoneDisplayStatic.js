@@ -1,9 +1,12 @@
 import React, { Suspense } from "react";
-import Individualchat from "./Individualchat";
 import PhoneModel from "./Phone";
 import { Canvas } from "@react-three/fiber";
 import "./PhoneDisplay.sass";
+import IndividualChatStatic from "./IndivisualChatStatic";
 export default function PhoneDisplayStatic(prop) {
+  // useEffect(() => {
+  //   console.log(prop);
+  // }, []);
   let chat;
   if (!prop.chat) {
     chat = [];
@@ -13,7 +16,7 @@ export default function PhoneDisplayStatic(prop) {
   let chatDraftedList = chat.map((chats, index) => {
     if (chats) {
       return (
-        <Individualchat
+        <IndividualChatStatic
           chat={chats.text}
           type={chats.sender === prop.sender ? "sender" : "reciever"}
         />
