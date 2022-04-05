@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import PhoneDisplayStatic from "../PhoneDisplay/PhoneDisplayStatic";
 import "./ChatInput.sass";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import preprocessorWhatsapp from "../../logic/preprocessor";
 import axios from "axios";
 
 export default function ChatInput() {
   const [page, setPage] = useState("whatsapp");
   const [sender, setSender] = useState("Sender");
+  const [title, setTitle] = useState("");
   const [chat, setChat] =
     useState(`09/12/2021, 9:27 pm - Mannual message writing option to publsh the digi chat
   09/12/2021, 9:27 pm - Sender: First chat here
   09/12/2021, 9:27 pm - Reciever: Reply chat here
   `);
+  let navigate = useNavigate();
   async function sendData(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/publishChat", { sender, chat })
-      .then(() => {
-        alert("Chat sucessfully sent");
+      .post("http://localhost:5000/api/publishChat", { title, sender, chat })
+      .then((res) => {
+        if (res.status === 220) {
+          navigate("/");
+        }
       });
   }
   return (
@@ -60,6 +64,14 @@ export default function ChatInput() {
           <input
             className="textbox"
             type="textbox"
+            placeholder="Chat Title"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
+          <input
+            className="textbox"
+            type="textbox"
             placeholder="Sender's name"
             onChange={(e) => {
               setSender(e.target.value);
@@ -88,6 +100,14 @@ export default function ChatInput() {
             `${page === "whatsapp" ? "hidden" : "active"}` + " inputcontent"
           }
         >
+          <input
+            className="textbox"
+            type="textbox"
+            placeholder="Chat Title"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
           <input
             className="textbox"
             type="textbox"

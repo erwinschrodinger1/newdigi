@@ -1,11 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./HomePage.sass";
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import PhoneModel from "../PhoneDisplay/Phone";
 import ChatCard from "../ChatCard/ChatCard";
 import PhoneDisplayStatic from "../PhoneDisplay/PhoneDisplayStatic";
+import axios from "axios";
+import { Link } from "react-router-dom";
 export default function HomePage() {
+  const [chats, setChats] = useState([]);
+  const chat = [
+    {
+      date: "09/12/2021, 9:27 pm",
+      sender: "+977 981-6364854",
+      text: " Hi Mate! What's Up?😀 ",
+      reciever: "+977 981-6364854",
+    },
+    {
+      date: "09/12/2021, 9:27 pm",
+      sender: "Nirjal Bhurtel",
+      text: " Thank You! All good😁 what about you was just chilling and having fun with Digi !",
+    },
+    {
+      date: "09/12/2021, 9:28 pm",
+      sender: "+977 981-6364854",
+      text: "Yeah! The animations and digi chat is fun bro! I also enjoy reading it!",
+      reciever: "+977 981-6364854",
+    },
+    {
+      date: "09/12/2021, 9:29 pm",
+      sender: "Nirjal Bhurtel",
+      text: "Yeah mate! Reading books is not same as it used to! I started reading more",
+    },
+    {
+      date: "09/12/2021, 9:29 pm",
+      sender: "Nirjal Bhurtel",
+      text: " Same here mate! Cheers! For Digi!",
+    },
+  ];
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/fetchChat").then((res) => {
+      setChats(res.data);
+      console.log(res.data);
+    });
+  }, []);
   return (
     <div className="HomePage">
       <div className="Page1">
@@ -18,33 +53,21 @@ export default function HomePage() {
           <p>Think Opening Imagination as you turn the pages of book !</p>
         </div>
         <div className="Canvas">
-          {/* <Canvas shadows camera={{ position: [0, 0, 10], fov: 50 }}>
-            <directionalLight
-              intensity={0.4}
-              position={[-1.2, 2, 1]}
-              castShadow
-            />
-            <mesh
-              rotation={[-0.3 * Math.PI, 0, 0]}
-              position={[0, -0.3, -2.8]}
-              receiveShadow
-            >
-              <planeBufferGeometry args={[10, 10, 1, 1]} />
-              <shadowMaterial transparent opacity={0.2} />
-            </mesh>
-            <Suspense fallback={null}>
-              <PhoneModel rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} />
-            </Suspense>
-          </Canvas> */}
-          <PhoneDisplayStatic />
+          <PhoneDisplayStatic chat={chat} sender="Nirjal Bhurtel" />
         </div>
       </div>
       <div className="Page2">
         <h1>Popular Digi-Chats</h1>
         <div className="Cards">
           {" "}
-          {[1, 2, 3].map(() => (
-            <ChatCard />
+          {chats.map((chat) => (
+            <Link to={"/chat/" + chat._id}>
+              <ChatCard
+                title={chat.title}
+                chat={chat.chat}
+                sender={chat.sender}
+              />
+            </Link>
           ))}{" "}
         </div>
       </div>
