@@ -12,13 +12,16 @@ router.post("/googlelogin",async (req,res)=>{
      client.verifyIdToken({idToken:tokenId, audience:"602782645460-9d9ognvavgj0vi6ivk92na43ch14mjof.apps.googleusercontent.com"}).then(response=>{
   
        const {email, email_verified, at_hash, given_name}=response.payload;
-       console.log(email, at_hash,given_name);
+
        if(email_verified){
-       User.findOne({email:email},(error,foundUser)=>{
+       User.findOne({email:email},async(error,foundUser)=>{
          if(foundUser){
-          const token = foundUser.generateAuthToken();
-        
+          const token = await foundUser.generateAuthToken();
+
+         
+          console.log(token);
           res.status(200).send(token);
+
 
          }
    
@@ -32,8 +35,7 @@ router.post("/googlelogin",async (req,res)=>{
            });
            const token = newUser.generateAuthToken();
            res.status(200).send(token);
-
-           newUser.save();
+    
          }
        });
         

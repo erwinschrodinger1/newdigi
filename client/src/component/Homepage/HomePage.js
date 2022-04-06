@@ -4,8 +4,42 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import PhoneModel from "../PhoneDisplay/Phone";
 import ChatCard from "../ChatCard/ChatCard";
+import { Link, useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
 import PhoneDisplayStatic from "../PhoneDisplay/PhoneDisplayStatic";
+import axios from "axios";
 export default function HomePage() {
+
+  const history= useNavigate();
+  const token=localStorage.getItem("jwt");
+
+
+  const callDash = async () => {
+    try {
+      
+    const url="/authenticate";
+      axios.post(url,{
+        token:token
+      }).then(res=>{
+        console.log(res);
+        if (res.status !==200) {
+          console.log("hello");
+          history("/login");
+          const error = new Error(res.error);
+          throw error;
+          
+        }
+      })
+      } catch (error) {
+
+      console.log("hello");
+    }
+  };
+
+  useEffect(() => {
+    callDash();
+  }, []);
+
   return (
     <div className="HomePage">
       <div className="Page1">

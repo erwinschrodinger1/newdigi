@@ -21,7 +21,7 @@ function Login() {
   const addtolist = async (e) => {
     e.preventDefault();
     // url wehre the data should be post
-    axios.post("http://localhost:5000/api/register/", {
+    axios.post("/api/register/", {
         name: name,
         email: email,
         password: password,
@@ -48,7 +48,7 @@ function Login() {
 
   const loginPostdata = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/api/login/";
+    const url = "/api/login/";
     axios
       .post(url,{
         username: username,
@@ -70,8 +70,21 @@ function Login() {
       });
    
   };
-  const responsesuccessGoogle=(res)=>{
-    console.log(res);
+  const responsesuccessGoogle=async (res)=>{
+   
+    const api = await fetch("/Dashboard", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body:JSON.stringify({
+        tokenId:res.tokenId
+      })
+    });
+    history("/");
+
     axios({
         method:"POST",
         url:"http://localhost:5000/googlelogin",
@@ -80,8 +93,9 @@ function Login() {
     }).then(res=>{
        
         const token=res.data;
+        console.log(res.data);
           
-            console.log(token);
+            
             localStorage.setItem("jwt",token);
           
      
