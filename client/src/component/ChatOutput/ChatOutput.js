@@ -22,8 +22,8 @@ export default function ChatOutput() {
   }, []);
   return (
     <div style={{ height: "90vh", width: "100%" }}>
-      <PhoneDisplayStatic chat={preprocessor(chat)} sender={sender} />
-      {/* <PhoneDisplayAnimation chat={preprocessor(chat)} sender={sender} /> */}
+      {/* <PhoneDisplayStatic chat={preprocessor(chat)} sender={sender} /> */}
+      <PhoneDisplayAnimation chat={preprocessor(chat)} sender={sender} />
     </div>
   );
 }
