@@ -18,18 +18,28 @@ export default function IndividualChatStatic(prop) {
   }
   return (
     <div className={prop.className}>
-      <div
-        className="chat"
-        style={{
-          marginLeft: marginLeft,
-          marginRight: marginRight,
-          backgroundColor: backgroundColor,
-          border: border,
-        }}
-      >
-        <div>
-          <p>{prop.date}</p>
-          <p>{prop.chat}</p>
+      <div style={{ margin: " 10px 0px" }}>
+        <p
+          className="date"
+          style={{
+            marginLeft: marginLeft,
+            marginRight: marginRight,
+          }}
+        >
+          {prop.date}
+        </p>
+        <div
+          className="chat"
+          style={{
+            marginLeft: marginLeft,
+            marginRight: marginRight,
+            backgroundColor: backgroundColor,
+            border: border,
+          }}
+        >
+          <div>
+            <p>{prop.chat}</p>
+          </div>
         </div>
       </div>
     </div>

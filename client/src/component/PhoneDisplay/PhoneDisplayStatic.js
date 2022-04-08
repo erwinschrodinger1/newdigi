@@ -17,6 +17,7 @@ export default function PhoneDisplayStatic(prop) {
     if (chats) {
       return (
         <IndividualChatStatic
+          date={chats.date}
           chat={chats.text}
           type={chats.sender === prop.sender ? "sender" : "reciever"}
         />
