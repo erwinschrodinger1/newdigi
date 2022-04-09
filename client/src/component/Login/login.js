@@ -2,7 +2,7 @@ import "./loginstyle.sass";
 import { Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import GoogleLogin from 'react-google-login';
-// import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login';
 import axios from "axios";
 
 function Login() {
@@ -105,6 +105,9 @@ function Login() {
 const responsefailureGoogle=(res)=>{
     console.log(res);
 }
+const responseFacebook=(res)=>{
+
+}
 
   return (
 
@@ -146,6 +149,12 @@ const responsefailureGoogle=(res)=>{
                 onFailure={responsefailureGoogle}
                 cookiePolicy={'single_host_origin'}
                 />
+                </div>
+                <div>
+            <FacebookLogin
+    appId="284465773762397"
+    autoLoad={false}
+    callback={responseFacebook} />
                 </div>
         </div>
         <div className="Register">

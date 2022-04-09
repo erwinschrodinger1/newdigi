@@ -44,4 +44,8 @@ router.post("/googlelogin",async (req,res)=>{
      });
      
    });
+
+   router.post("/facebooklogin",async(req,res)=>{
+     
+   })
    module.exports=router;
