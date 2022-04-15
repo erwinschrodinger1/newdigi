@@ -1,6 +1,8 @@
 import "./loginstyle.sass";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 import axios from "axios";
 
 function Login() {
@@ -19,7 +21,7 @@ function Login() {
     e.preventDefault();
     // url wehre the data should be post
     axios
-      .post("http://localhost:5000/api/register/", {
+      .post("/api/register/", {
         name: name,
         email: email,
         password: password,
@@ -28,17 +30,17 @@ function Login() {
       .then((res) => {
         console.log("data send" + name);
         if (res.data.error !== "") {
-          history.push("/signup");
+          history("/signup");
           setMessage(res.data.error);
         } else {
-          history.push("/");
+          history("/");
         }
       });
   };
 
   const loginPostdata = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/api/login/";
+    const url = "/api/login/";
     axios
       .post(url, {
         username: username,
@@ -53,6 +55,37 @@ function Login() {
         }
       });
   };
+  const responsesuccessGoogle = async (res) => {
+    const api = await fetch("/Dashboard", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        tokenId: res.tokenId,
+      }),
+    });
+    history("/");
+
+    axios({
+      method: "POST",
+      url: "http://localhost:5000/googlelogin",
+      data: { tokenId: res.tokenId },
+    }).then((res) => {
+      const token = res.data;
+      console.log(res.data);
+
+      localStorage.setItem("jwt", token);
+
+      history("/");
+    });
+  };
+  const responsefailureGoogle = (res) => {
+    console.log(res);
+  };
+  const responseFacebook = (res) => {};
 
   return (
     // <div className={divname}>
@@ -191,6 +224,24 @@ function Login() {
           <button className="sumbit" onClick={loginPostdata}>
             Login
           </button>
+          <br />
+          <div>
+            {" "}
+            <GoogleLogin
+              clientId="602782645460-9d9ognvavgj0vi6ivk92na43ch14mjof.apps.googleusercontent.com"
+              buttonText="Login With Google"
+              onSuccess={responsesuccessGoogle}
+              onFailure={responsefailureGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+          </div>
+          <div>
+            <FacebookLogin
+              appId="284465773762397"
+              autoLoad={false}
+              callback={responseFacebook}
+            />
+          </div>
         </div>
         <div className="Register">
           <h1>Signup</h1>

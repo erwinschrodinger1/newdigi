@@ -13,12 +13,12 @@ router.use(cors());
 router.use(cookieParser());
 
 router.post("/api/register/", (req, res) => {
-    console.log(req.body);
+ 
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
     const password2 = req.body.password2;
-    console.log(name);
+   
   
     if (!name || !email || !password || !password2) {
        res.status(221).send("Please fill in all fields" );
@@ -30,7 +30,7 @@ router.post("/api/register/", (req, res) => {
       return res.status(221).send("Email not validated.");
     } else {
       const hashPassword = bcrypt.hashSync(password, 10);
-      console.log(hashPassword);
+ 
       User.findOne({ email: email }, async (err, foundUser) => {
         if (err) {
           console.log(err);
@@ -44,17 +44,10 @@ router.post("/api/register/", (req, res) => {
           });
           const token = await newUser.generateAuthToken();
 
-          res.cookie("jwt", token, {
-            expire: new Date(Date.now() + 5000000),
-            
-            // httpOnly:true,
-            // secure:true  --only can be used in production version. So uncomment when deploying..
-          },(error)=>{
-            console.log(error);
-          });
+          res.status(200).send(token);
           console.log(token);
           const nuser = await newUser.save(() => {
-            res.status(200).send(token);
+            console.log("saved");
           });
         }
       });
@@ -78,11 +71,7 @@ router.post("/api/register/", (req, res) => {
   
         const token = await foundUser.generateAuthToken();
         console.log(token);
-        res.cookie("jwt", token, {
-          expire: new Date(Date.now() + 5000000),
-          // httpOnly:true,
-          // secure:true  --only can be used in production version. So uncomment when deploying..
-        });
+      
         res.status(200).send(token);
   
         if (isMatch) {

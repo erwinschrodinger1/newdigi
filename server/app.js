@@ -18,8 +18,9 @@ app.use(express.json());
 
 app.use("/", require("./routes/user"));
 app.use("/", require("./routes/oauth"));
+// app.use("/",require("./middleware/auth"));
+app.use("/", require("./routes/get"));
 app.use("/", require("./routes/chat"));
-//   app.use("/",require("./routes/chat"));
 
 const PORT = 5000 || process.env.PORT;
 
