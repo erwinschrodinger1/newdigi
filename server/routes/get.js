@@ -8,21 +8,23 @@ const jwt= require("jsonwebtoken");
 
 router.use(cookieParser());
 dotenv.config({path:"../config.env"});
-router.post("/authenticate",(req,res)=>
+router.post("/authenticate",async (req,res)=>
 { 
 
     try {
     
         const token= req.body.token;
+        console.log(token);
+
         
 
         const sec=process.env.SECRET_KEY;
         const verifyUser= jwt.verify(token,sec);
        
         
-        const user=User.findOne({_id:verifyUser._id,"tokens.token":token});
+        const user= await User.findOne({_id:verifyUser._id,"tokens.token":token});
         
-        
+        console.log(user);
         if(!user){
             
             throw error;
@@ -31,7 +33,7 @@ router.post("/authenticate",(req,res)=>
         
     } catch (error) {
         console.log("ERROR FOUND");
-        res.status(202).json("");
+        res.status(202).send("");
     }
 });
 

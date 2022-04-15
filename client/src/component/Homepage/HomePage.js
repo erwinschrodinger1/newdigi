@@ -38,7 +38,7 @@ export default function HomePage() {
   useEffect(() => {
     axios.get("http://localhost:5000/api/fetchChat").then((res) => {
       setChats(res.data);
-      console.log(res.data);
+      
     });
   }, []);
 
@@ -54,14 +54,16 @@ export default function HomePage() {
         })
         .then((res) => {
           console.log(res);
-          if (res.status !== 200) {
+          if (res.status === 202) {
             console.log("hello");
             history("/login");
+         
             const error = new Error(res.error);
             throw error;
           }
         });
     } catch (error) {
+      
       console.log("hello");
     }
   };

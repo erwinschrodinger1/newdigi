@@ -21,7 +21,7 @@ router.post("/api/register/", (req, res) => {
    
   
     if (!name || !email || !password || !password2) {
-       res.status(221).send("Please fill in all fields" );
+       res.status(221).json("Please fill in all fields" );
     } else if (password !== password2) {
        res.status(221).send("Password didn't match");
     } else if (password.length < 8) {
@@ -56,31 +56,32 @@ router.post("/api/register/", (req, res) => {
   
   
   router.post("/api/login/", async (req, res) => {
-    console.log("here");
+   
     const email = req.body.username;
     const password = req.body.password;
-    console.log(email);
+
     if (!email || !password) {
       res.status(221).send("Please fill the fields");
     }
     User.findOne({ email: email }, async (error, foundUser) => {
       if (error) {
-        console.log(error);
+     console.log(".");
       } else if (foundUser) {
+        console.log("hello");
         const isMatch = await bcrypt.compare(password, foundUser.hashPassword);
   
         const token = await foundUser.generateAuthToken();
-        console.log(token);
-      
-        res.status(200).send(token);
+
   
         if (isMatch) {
           console.log("Password matched");
+          console.log(token);
+          res.status(220).send(token);
           res.status(221).send("");
           console.log("Sent to json");
         } else {
           console.log("Not matched");
-          res.status(221).send("email and password didn't match");
+          res.status(221).json("email and password didn't match");
         }
       }
     });
