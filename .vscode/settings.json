@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/18f5ebfb-102e-47f9-8bc1-6702cf2053c0/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/DigiPapyrus",
+    "appService.deploySubpath": "server"
+}
